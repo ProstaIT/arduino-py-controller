@@ -1,9 +1,8 @@
-
 import tkinter
 from tkinter import *
 from tkinter import colorchooser
 from Arduino import Arduino
-
+onoff = 0
 
 def compiler(t):
     exec(text.get(1.0, END))
@@ -95,7 +94,50 @@ def window1():
     win1.mainloop()
 
 
+def window2():
+    port = message.get()
 
+    def on_off():
+        global onoff
+        if onoff == 1:
+            buttonon.config(state=tkinter.NORMAL, bg="red")
+
+            onoff = 0
+        else:
+            onoff = 1
+            buttonon.config(state=tkinter.NORMAL, bg="green")
+
+    def start():
+        global onoff
+
+        board = Arduino("115200", port=message.get())
+        board.pinMode(w.get(), "OUTPUT")
+        if onoff == 1:
+            board.digitalWrite(w.get(), "HIGH")
+        else:
+            board.digitalWrite(w.get(), "LOW")
+
+    root2 = Tk()
+    root2.geometry("1000x600")
+    root2['bg'] = '#e1e9eb'
+    label_e = tkinter.Label(root2, bg="#00778f")
+    opts = {'ipadx': 49, 'ipady': 10, 'fill': tkinter.BOTH}
+    label_e.pack(side=tkinter.TOP, **opts)
+    root2.title("Arduino controller")
+
+    name_label1 = Label(root2, text="Выберите порт.")
+    name_label1.place(x=90, y=90, anchor="c", height=50, width=150, bordermode=OUTSIDE)
+
+    w = Scale(root2, from_=0, to=30, orient=HORIZONTAL)
+    w.place(x=90, y=120, anchor="c", height=40, width=150, bordermode=OUTSIDE)
+
+    buttonon = Button(root2, text="on/off", font="Roboto 15", command=on_off)
+    buttonon.place(x=90, y=160, anchor="c", height=30, width=150, bordermode=OUTSIDE)
+
+    bg_btn = Button(root2, text="Start", font="Roboto 15", command=start)
+    bg_btn.place(x=90, y=200, anchor="c", height=30, width=150, bordermode=OUTSIDE)
+
+    root2.mainloop()
 
 
 root = Tk()
@@ -105,7 +147,7 @@ root['bg'] = 'grey'
 
 button1 = Button(root, text = "Arduino Compiler", font = "Roboto 15", activebackground = '#585858', command=window1)
 button1.grid(row = 0, column = 1, padx = 90, pady = 20)
-button2 = Button(root, text = "Arduino Compiler", font = "Roboto 15")
+button2 = Button(root, text = "Arduino Compiler", font = "Roboto 15", activebackground = '#585858', command=window2)
 button2.grid(row = 1, column = 1, padx = 90, pady = 20)
 button3 = Button(root, text = "Arduino Compiler", font = "Roboto 15")
 button3.grid(row = 2, column = 1, padx = 90, pady = 20)
