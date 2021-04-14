@@ -93,7 +93,6 @@ def window1():
 
     win1.mainloop()
 
-
 def window2():
     port = message.get()
 
@@ -154,6 +153,13 @@ button3.grid(row = 2, column = 1, padx = 90, pady = 20)
 
 port_label = Label(root, text = "Введите порт.")
 port_label.grid(row = 3, column = 1, pady = 10)
+
+message = StringVar()
+message_entry = Entry(textvariable = message)
+message_entry.grid(row = 4, column = 1, pady = 10)
+
+
+root.mainloop()
 
 message = StringVar()
 message_entry = Entry(textvariable = message)
