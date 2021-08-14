@@ -1,4 +1,4 @@
-# Arduino-Laser
+# Arduino-Py-Controller
 
 * Author of the code - Prosta
  * Donat - https://www.donationalerts.com/r/prostaprogramming
